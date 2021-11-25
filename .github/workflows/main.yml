@@ -62,8 +62,7 @@ jobs:
 
       # Migrate DB & generate prisma client
       - name: Migrate DB & generate prisma client
-        # run: yarn blitz prisma migrate dev
-        run: yarn predev && yarn migrate
+        run: yarn migrate
 
       # Jest Tests (API/Frontend)
       - name: Run Jest Tests
