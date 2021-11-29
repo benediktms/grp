@@ -1,19 +1,19 @@
-import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from "react"
-import { useField, UseFieldConfig } from "react-final-form"
+import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from 'react';
+import { useField, UseFieldConfig } from 'react-final-form';
 
-import { Input } from "@chakra-ui/input"
-import { FormControl, FormLabel } from "@chakra-ui/form-control"
+import { Input } from '@chakra-ui/input';
+import { FormControl, FormLabel } from '@chakra-ui/form-control';
 
 export interface LabeledTextFieldProps extends ComponentPropsWithoutRef<typeof Input> {
   /** Field name. */
-  name: string
+  name: string;
   /** Field label. */
-  label: string
+  label: string;
   /** Field type. Doesn't include radio buttons and checkboxes */
-  type?: "text" | "password" | "email" | "number"
-  outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
-  labelProps?: ComponentPropsWithoutRef<"label">
-  fieldProps?: UseFieldConfig<string>
+  type?: 'text' | 'password' | 'email' | 'number';
+  outerProps?: PropsWithoutRef<JSX.IntrinsicElements['div']>;
+  labelProps?: ComponentPropsWithoutRef<'label'>;
+  fieldProps?: UseFieldConfig<string>;
 }
 
 export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldProps>(
@@ -23,14 +23,14 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
       meta: { touched, error, submitError, submitting },
     } = useField(name, {
       parse:
-        props.type === "number"
+        props.type === 'number'
           ? (Number as any)
           : // Converting `""` to `null` ensures empty values will be set to null in the DB
-            (v) => (v === "" ? null : v),
+            (v: any) => (v === '' ? null : v),
       ...fieldProps,
-    })
+    });
 
-    const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
+    const normalizedError = Array.isArray(error) ? error.join(', ') : error || submitError;
 
     return (
       <FormControl {...outerProps}>
@@ -39,13 +39,13 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
           <Input {...input} disabled={submitting} {...props} ref={ref} />
         </FormLabel>
         {touched && normalizedError && (
-          <div role="alert" style={{ color: "red" }}>
+          <div role="alert" style={{ color: 'red' }}>
             {normalizedError}
           </div>
         )}
       </FormControl>
-    )
+    );
   }
-)
+);
 
-export default LabeledTextField
+export default LabeledTextField;
