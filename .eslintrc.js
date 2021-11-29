@@ -2,7 +2,7 @@ module.exports = {
   extends: ['blitz'],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'babel.config.js'],
   parserOptions: {
     project: './tsconfig.json',
   },
