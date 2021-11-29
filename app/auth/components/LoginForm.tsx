@@ -1,36 +1,37 @@
-import {AuthenticationError, Link, useMutation, Routes, PromiseReturnType} from "blitz"
-import {LabeledTextField} from "app/core/components/LabeledTextField"
-import {Form, FORM_ERROR} from "app/core/components/Form"
-import login from "app/auth/mutations/login"
-import {Login} from "app/auth/validations"
+import { AuthenticationError, Link, useMutation, Routes, PromiseReturnType } from 'blitz';
+import { LabeledTextField } from 'app/core/components/LabeledTextField';
+import { Form, FORM_ERROR } from 'app/core/components/Form';
+import login from 'app/auth/mutations/login';
+import { Login } from 'app/auth/validations';
+import { Container } from '@chakra-ui/layout';
 
 type LoginFormProps = {
-  onSuccess?: (user: PromiseReturnType<typeof login>) => void
-}
+  onSuccess?: (user: PromiseReturnType<typeof login>) => void;
+};
 
 export const LoginForm = (props: LoginFormProps) => {
-  const [loginMutation] = useMutation(login)
+  const [loginMutation] = useMutation(login);
 
   return (
-    <div>
+    <Container>
       <h1>Login</h1>
 
       <Form
         submitText="Login"
         schema={Login}
-        initialValues={{email: "", password: ""}}
-        onSubmit={async (values) => {
+        initialValues={{ email: '', password: '' }}
+        onSubmit={async values => {
           try {
-            const user = await loginMutation(values)
-            props.onSuccess?.(user)
+            const user = await loginMutation(values);
+            props.onSuccess?.(user);
           } catch (error: any) {
             if (error instanceof AuthenticationError) {
-              return {[FORM_ERROR]: "Sorry, those credentials are invalid"}
+              return { [FORM_ERROR]: 'Sorry, those credentials are invalid' };
             } else {
               return {
                 [FORM_ERROR]:
-                  "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
-              }
+                  'Sorry, we had an unexpected error. Please try again. - ' + error.toString(),
+              };
             }
           }
         }}
@@ -44,11 +45,11 @@ export const LoginForm = (props: LoginFormProps) => {
         </div>
       </Form>
 
-      <div style={{marginTop: "1rem"}}>
+      <div style={{ marginTop: '1rem' }}>
         Or <Link href={Routes.SignupPage()}>Sign Up</Link>
       </div>
-    </div>
-  )
-}
+    </Container>
+  );
+};
 
-export default LoginForm
+export default LoginForm;

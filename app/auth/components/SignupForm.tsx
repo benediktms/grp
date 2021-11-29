@@ -5,6 +5,7 @@ import signup from 'app/auth/mutations/signup';
 import { Signup } from 'app/auth/validations';
 import { useToast } from '@chakra-ui/toast';
 import React from 'react';
+import { Container } from '@chakra-ui/react';
 
 type SignupFormProps = {
   onSuccess: () => void;
@@ -15,11 +16,10 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   const toast = useToast();
 
   return (
-    <div>
-      <h1>Create an Account</h1>
-
+    <Container>
       <Form
         submitText="Create Account"
+        showLoginButton
         schema={Signup}
         initialValues={{ email: '', password: '', passwordConfirmation: '' }}
         onSubmit={async values => {
@@ -51,12 +51,12 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
         <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
         <LabeledTextField
           name="passwordConfirmation"
-          label="Password"
+          label="Confirm password"
           placeholder="Password"
           type="password"
         />
       </Form>
-    </div>
+    </Container>
   );
 };
 
